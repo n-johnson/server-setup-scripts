@@ -8,7 +8,7 @@
     USER="default"
     PASS="password"
 #Basics
-    SWAPSIZE=512 #512 mb
+    SWAPSIZE=0 # num megabytes. 0 = don't use swap (i.e OpenVZ VPS)
 #SSH Settings
     SSHPORT=2222
 #Personal SSH key for access servers
@@ -22,15 +22,19 @@
 echo "Starting Server Setup!"
 echo
 
-echo "Setting up swap space: $SWAPSIZE megabytes"
-#dd if=/dev/zero of=/swapfile bs=1024 count=$(echo $SWAPSIZE)k # Much slower way
-fallocate -l $(echo $SWAPSIZE)M /swapfile # Much faster way
-mkswap /swapfile
-swapon /swapfile
-echo '/swapfile none swap defaults 0 0' >> /etc/fstab # Append fstab to make swap persist reboot
-
-chown root:root /swapfile # Secure swap file
-chmod 0600 /swapfile
+if [ "$SWAPSIZE" -gt "0" ]
+then
+    echo "Setting up swap space: $SWAPSIZE megabytes"
+    #dd if=/dev/zero of=/swapfile bs=1024 count=$(echo $SWAPSIZE)k # Much slower way
+    fallocate -l $(echo $SWAPSIZE)M /swapfile # Much faster way
+    mkswap /swapfile
+    swapon /swapfile
+    echo '/swapfile none swap defaults 0 0' >> /etc/fstab # Append fstab to make swap persist reboot
+    chown root:root /swapfile # Secure swap file
+    chmod 0600 /swapfile
+else
+    echo "Swap disabled. Skipping!"	
+fi
 
 echo "Adding user $USER"
 useradd -s /bin/bash -m -d /home/$USER -U -p $PASS $USER # Shouldn't prompt for any information
@@ -109,7 +113,7 @@ echo "-------------------- <Conclusion> --------------------"
 echo "------------------------------------------------------"
 echo
 echo 
-echo "Added swap file"
+echo "Added swap file (If enabled)"
 echo "  - /swapfile"
 echo "  - ($SWAPSIZE) megabytes"
 echo
