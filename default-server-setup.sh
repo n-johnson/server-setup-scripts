@@ -36,6 +36,10 @@ else
     echo "Swap disabled. Skipping!"	
 fi
 
+echo "Setting up locales"
+locale-gen en_US en_US.UTF-8
+dpkg-reconfigure locales 
+
 echo "Adding user $USER"
 useradd -s /bin/bash -m -d /home/$USER -U -p $PASS $USER # Shouldn't prompt for any information
 
