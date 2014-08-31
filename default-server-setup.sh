@@ -73,7 +73,8 @@ service ssh restart
 echo "Installing new software"
 apt-get update
 apt-get upgrade -y
-apt-get install man -y #Man (why isn't this default on a bare bones install?)
+apt-get install sudo -y # Why isn't this default on a bare bones install?
+apt-get install man -y # Or this??
 apt-get install build-essential openssl libssl-dev vim zip unzip git curl -y #Utils
 apt-get install nginx php5 php5-mcrypt php5-cli php5-common php5-fpm fail2ban iptables ufw -y #Server
 apt-get install htop nload -y #Monitoring
