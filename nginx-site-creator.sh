@@ -49,11 +49,14 @@ fi
 
 # Virtual host template
 sudo echo "server {
+  listen 80;
+
   server_name www.DOMAIN DOMAIN;
  
   root ROOT;
  
   access_log /var/log/nginx/DOMAIN.access.log;
+  error_log /var/log/nginx/DOMAIN.access.log;
  
   index index.html index.htm;
  
@@ -63,9 +66,14 @@ sudo echo "server {
     expires max;
   }
  
-  location ~ /\.ht {
+  location ~* /\.(ht|git|svn) {
     deny  all;
   }
+
+  location / {
+    try_files $uri $uri/ =404;
+  }
+
 }" > $CONFIG
 
 sudo sed -i "s/DOMAIN/$DOMAIN/g" $CONFIG # Replaces DOMAIN with $DOMAIN var in our config file
