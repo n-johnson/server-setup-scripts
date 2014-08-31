@@ -1,1 +1,6 @@
 1.) Remove plaintext password from root user history
+^^^ Don't think I need to, when run inside of a bash script the `mkpasswd` command where a plaintext password is used doesn't log it anywhere. Need to confirm this.
+
+1.) default-server-setup - Instead of hardcoding username/password/publickey in the script itself, replace that with command line args. Useful in testing, but in real world use the script will only be ran once per server, so no reason to store the information inside of it.
+
+2.) nginx-site-creator.sh - virtual host file needs updating. Find a more recent version and append
