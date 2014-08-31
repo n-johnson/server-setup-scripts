@@ -29,10 +29,12 @@ echo "-------------------- <Conclusion> --------------------"
 echo "------------------------------------------------------"
 echo
 echo "Install node.js via NVM"
-echo "  - Version 0.10.31"
+echo -n "  - Node Version: " && node -v
+echo -n "  - NPM Version: " && npm -v
 echo
 echo "Install PM2 via npm"
 echo
+echo "You will need to run 'source ~/.profile' in your terminal to make node & npm commands work"
 echo "-------------------------------------------------------"
 echo "-------------------- </Conclusion> --------------------"
 echo "-------------------------------------------------------"
