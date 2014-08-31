@@ -3,7 +3,16 @@
 # URL: http://njohnson.me
 # License: MIT
 
-echo "Installing node.js"
+if [[ $EUID -eq 0 ]]
+then
+    echo "ERROR: This script is running as root."
+    echo "This would result in a major headache with package permissions and NPM not being able to access files."
+    echo "To avoid this, please run this script normally: not with sudo or as root."
+    echo "Exiting..."
+    exit 1
+else
+    echo "Installing node.js"
+fi
 
 cd # Home directory
 curl https://raw.githubusercontent.com/creationix/nvm/v0.14.0/install.sh | bash #This is an awful awful method. NVM should know better.
