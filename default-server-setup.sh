@@ -81,7 +81,7 @@ apt-get install htop nload -y #Monitoring
 
 echo "Setting up UFW Firewall"
 
-ufw disable && ufw enable
+ufw --force disable && ufw --force enable
 
 ufw default deny incoming
 ufw default allow outgoing
@@ -90,7 +90,7 @@ ufw allow $SSHPORT/tcp
 ufw allow www
 ufw allow 443/tcp
 
-ufw disable && ufw enable
+ufw --force disable && ufw --force enable
 
 echo "Switching to main user, $USER"
 su $USER
