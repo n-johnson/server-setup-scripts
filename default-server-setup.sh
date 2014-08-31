@@ -65,7 +65,7 @@ chmod 600 /home/$USER/.ssh/authorized_keys
 sed -i "s/#AuthorizedKeysFile/AuthorizedKeysFile/g" /etc/ssh/sshd_config
 
 echo "Generating SSH key for user $USER for virtually no reason besides we can."
-ssh-keygen -t rsa -f $HOME/.ssh/id_rsa -N '' # -n '' prevents password prompt
+ssh-keygen -t rsa -f /home/$USER/.ssh/id_rsa -N '' # -n '' prevents password prompt
 
 echo "Restarting ssh"
 service ssh restart
