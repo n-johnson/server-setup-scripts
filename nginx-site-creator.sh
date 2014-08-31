@@ -13,8 +13,6 @@ then
     echo "Please try again either as root user or with sudo"
     echo "Exiting..."
     exit 1
-else
-    echo "Installing node.js"
 fi
 
 # Check script args
