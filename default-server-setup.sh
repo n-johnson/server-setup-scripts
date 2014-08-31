@@ -6,7 +6,7 @@
 ######## Start setup ########
 #Default User
     USER="default"
-    PASS="password"
+    PASSWORD="password"
 #Basics
     SWAPSIZE=0 # num megabytes. 0 = don't use swap (i.e OpenVZ VPS)
 #SSH Settings
@@ -41,7 +41,8 @@ locale-gen en_US en_US.UTF-8
 dpkg-reconfigure locales 
 
 echo "Adding user $USER"
-useradd -s /bin/bash -m -d /home/$USER -U -p $PASS $USER # Shouldn't prompt for any information
+ENC_PASSWORD=$(mkpasswd -m SHA-512 $PASSWORD) # Encrypt the password (useradd doesn't by default)
+useradd -s /bin/bash -m -d /home/$USER -U -p $ENC_PASSWORD $USER # Shouldn't prompt for any information
 
 echo "Adding $USER to sudoers"
 sudo adduser $USER sudo
