@@ -91,10 +91,6 @@ ufw allow 443/tcp
 
 ufw disable && ufw enable
 
-echo "Make sure these rules are correct!"
-ufw status
-echo "Were ^^ what you wanted??"
-
 echo "Switching to main user, $USER"
 su $USER
 
