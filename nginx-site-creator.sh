@@ -6,6 +6,17 @@
 USERNAME='www-data' #Default nginx user
 WWW_DIR='/var/www'
 
+# Root/sudo check
+if [[ $EUID -ne 0 ]]
+then
+    echo "ERROR: This script must be run as root."
+    echo "Please try again either as root user or with sudo"
+    echo "Exiting..."
+    exit 1
+else
+    echo "Installing node.js"
+fi
+
 # Check script args
 if [ -z $1 ]
 then
@@ -85,7 +96,7 @@ sudo echo "<html>
 
 sudo sed -i "s/SITE/$DOMAIN/g" $WWW_DIR/$DOMAIN/public_html/index.html
 sudo chown $USERNAME:$USERNAME $WWW_DIR/$DOMAIN/public_html -R # Make www-data the owner of site files
-sudo chmod -R 760 $WWW_DIR/$DOMAIN/public_html # o+rwx, g+rw (allows www-data group users to edit files but only www-data to actually run them)
+sudo chmod -R 770 $WWW_DIR/$DOMAIN/public_html # Only www-data group can access files
 
 # Restart nginx
 echo "Restarting nginx"
