@@ -92,19 +92,6 @@ ufw allow 443/tcp
 
 ufw --force disable && ufw --force enable
 
-echo "Switching to main user, $USER"
-su $USER
-
-echo "Installing node.js"
-curl https://raw.githubusercontent.com/creationix/nvm/v0.14.0/install.sh | bash #This is an awful awful method. NVM should know better.
-source ~/.profile # Reload profile to get nvm commands
-nvm install 0.10.31 # Don't hardcode this!
-nvm alias default 0.10.31
-nvm use default
-
-echo "Installing pm2"
-npm install pm2 -g
-
 echo "------------------------------------------------------"
 echo "-------------------- <Conclusion> --------------------"
 echo "------------------------------------------------------"
@@ -124,7 +111,7 @@ echo "  - Disabled password authentication"
 echo "  - Added $USER to AuthorizedUsers"
 echo
 echo "Installed Software"
-echo "  - man"
+echo "  - sudo | man"
 echo "  - (Server): nginx | php | ufw | fail2ban"
 echo "  - (Monitoring): htop | nload"
 echo "  - (Utils): build-essential | openssl | git | vim | zip | unzip"
@@ -132,11 +119,6 @@ echo
 echo "Setup UFW"
 echo "  - SSH on port $SSHPORT"
 echo "  - WWW (80+443)"
-echo
-echo "Install node.js via NVM"
-echo "  - Version 0.10.31"
-echo
-echo "Install PM2 via npm"
 echo
 echo "-------------------------------------------------------"
 echo "-------------------- </Conclusion> --------------------"
